@@ -61,7 +61,8 @@ create_pool = (thrift, pool_options = {}, thrift_options = {}) ->
       debug "in validate"
       return false if connection.__ended
       return true unless pool_options.ttl?
-      connection.__reap_time < Date.now()
+      #connection.__reap_time < Date.now() change it to max live time for re-load banlance
+      Date.now() < connection.__reap_time
     log: pool_options.log
     max: pool_options.max_connections
     min: pool_options.min_connections
